@@ -1,5 +1,5 @@
-import Layout from '../components/Layout';
-import IndexContent from '../components/IndexContent';
+import Layout from '../components/common/Layout';
+import IndexContent from '../components/index/IndexContent';
 import fetch from 'isomorphic-unfetch';
 
 const Index = props => (

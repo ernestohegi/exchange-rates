@@ -1,5 +1,5 @@
-import Layout from '../components/Layout';
-import RatesContent from '../components/RatesContent';
+import Layout from '../components/common/Layout';
+import RatesContent from '../components/rates/RatesContent';
 import fetch from 'isomorphic-unfetch';
 
 const Rates = props => (

@@ -1,5 +1,5 @@
-import Layout from '../components/Layout';
-import PostContent from '../components/PostContent';
+import Layout from '../components/common/Layout';
+import PostContent from '../components/post/PostContent';
 import fetch from 'isomorphic-unfetch';
 
 const Post = props => (
