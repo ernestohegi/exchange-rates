@@ -3,7 +3,7 @@ import { Component } from 'react';
 class CurrencyOption extends Component {
     render() {
         return (
-            <option>{this.props.name}</option>
+            <option value={this.props.value}>{this.props.name}</option>
         );
     }
 }

@@ -14,8 +14,8 @@ class RatesContent extends Component {
             <div>
                 <h1>Rates</h1>
 
-                <Currency base={this.props.rates.base} />
-                <CurrencyDropdown />
+                <Currency base={this.props.rates.base} store={this.props.store} />
+                <CurrencyDropdown store={this.props.store}/>
                 <ExchangeRates rates={this.props.rates.rates} />
             </div>
         );
