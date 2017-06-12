@@ -6,7 +6,7 @@ const exampleInitialState = {
     currency: 'GBP'
 }
 
-export const actionTypes = {
+const actionTypes = {
     SET_CURRENCY_GBP: 'SET_CURRENCY_GBP',
     SET_CURRENCY_EUR: 'SET_CURRENCY_EUR',
     SET_CURRENCY_USD: 'SET_CURRENCY_USD'
@@ -48,8 +48,6 @@ const reducer = (state = exampleInitialState, action) => {
     }
 
     return newState;
-}
+};
 
-export const initStore = (initialState = exampleInitialState) => {
-  return createStore(reducer, initialState, composeWithDevTools(applyMiddleware(thunkMiddleware)))
-}
+export const initStore = (initialState = exampleInitialState) => createStore(reducer, initialState);

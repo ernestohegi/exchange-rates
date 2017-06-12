@@ -3,10 +3,13 @@ import { Component } from 'react';
 class Currency extends Component {
     constructor(props) {
         super(props);
-        this.state = { currency: props.base};
+
+        this.state = {
+            currency: props.base
+        };
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.props.store.subscribe(() => {
             this.setState(this.props.store.getState());
         });

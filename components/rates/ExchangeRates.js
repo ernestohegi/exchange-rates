@@ -7,11 +7,7 @@ const ratesContainerStyle = {
     padding: '0'
 };
 
-const rateStyle = {
-    border: '1px solid pink',
-    padding: '10px',
-    margin: '0 0 10px 0'
-};
+const rateStyle = {};
 
 class ExchangeRates extends Component {
     render() {
