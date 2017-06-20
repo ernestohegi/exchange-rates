@@ -5,32 +5,38 @@ import CurrencyDropdown from './CurrencyDropdown';
 import { Component } from 'react';
 import fetch from 'isomorphic-unfetch';
 
+const EXCHANGE_RATE_BASE_URL = 'http://api.fixer.io/latest?base=';
+
+const titleStyle = {
+    margin: 0
+};
+
 class RatesContent extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {rates:{rates:{}}};
-        this.state.rates.rates = props.rates.rates;
+        this.state = Object.assign({}, props);
     }
 
     componentDidMount() {
-        this.props.store.subscribe(() => {
-            fetch('http://api.fixer.io/latest?base=' + this.props.store.getState().currency)
-                .then(response => response.json())
-                .then(data => {
-                    this.setState({
-                        rates: {
-                            rates: data.rates
-                        }
-                    });
+        this.props.store.subscribe(() => this.getExchangeRate(this.props.store.getState().currency));
+    }
+
+    getExchangeRate(currency) {
+        return fetch(EXCHANGE_RATE_BASE_URL + currency)
+            .then(response => response.json())
+            .then(data => {
+                this.setState({
+                    rates: Object.assign({}, data)
                 });
-        });
+            })
+        ;
     }
 
     render() {
         return (
             <div>
-                <h1>Rates</h1>
+                <h1 style={titleStyle}>Rates</h1>
 
                 <Currency base={this.props.rates.base} store={this.props.store} />
                 <CurrencyDropdown store={this.props.store}/>

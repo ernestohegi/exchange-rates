@@ -9,12 +9,6 @@ class Currency extends Component {
         };
     }
 
-    componentDidMount() {
-        this.props.store.subscribe(() => {
-            this.setState(this.props.store.getState());
-        });
-    }
-
     render() {
         return (
             <p>{ this.state.currency }</p>

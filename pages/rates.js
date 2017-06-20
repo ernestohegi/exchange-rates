@@ -10,18 +10,16 @@ const RATES_API_BASE_PARAMETER = 'base=';
 
 const Rates = props => (
     <Layout>
-        <RatesContent rates={props.rates} store={props.store}/>
+        <RatesContent rates={props.rates} store={initStore()}/>
     </Layout>
 );
 
 Rates.getInitialProps = async function () {
     const res = await fetch(RATES_API_URL + RATES_API_BASE_PARAMETER + BASE_CURRENCY);
     const data = await res.json();
-    const store = initStore();
 
     return {
-        rates: data,
-        store
+        rates: data
     };
 };
 
