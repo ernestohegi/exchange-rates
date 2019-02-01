@@ -1,29 +1,34 @@
 import Link from 'next/link';
-import Currency from './Currency';
 import ExchangeRates from './ExchangeRates';
 import CurrencyDropdown from './CurrencyDropdown';
-import { Component } from 'react';
+import React from 'react';
 import fetch from 'isomorphic-unfetch';
+import { config } from '../../config';
 
-const EXCHANGE_RATE_BASE_URL = 'http://api.fixer.io/latest?base=';
+const EXCHANGE_RATE_BASE_URL = config.API_URL;
 
 const titleStyle = {
     margin: 0
 };
 
-class RatesContent extends Component {
+class RatesContent extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = Object.assign({}, props);
+        this.state.currency = props.rates.base;
     }
 
     componentDidMount() {
-        this.props.store.subscribe(() => this.getExchangeRate(this.props.store.getState().currency));
+        this.props.store.subscribe(() => {
+            const { currency } = this.props.store.getState();
+            this.setCurrency(currency);
+            this.getExchangeRate(currency);
+        });
     }
 
     getExchangeRate(currency) {
-        return fetch(EXCHANGE_RATE_BASE_URL + currency)
+        return fetch(`${EXCHANGE_RATE_BASE_URL}?base=${currency}`)
             .then(response => response.json())
             .then(data => {
                 this.setState({
@@ -33,13 +38,18 @@ class RatesContent extends Component {
         ;
     }
 
+    setCurrency(currency) {
+        this.setState({
+            currency
+        });
+    }
+
     render() {
         return (
             <div>
-                <h1 style={titleStyle}>Rates</h1>
+                <h1 style={titleStyle}>Exchange Rates for { this.state.currency }</h1>
 
-                <Currency base={this.props.rates.base} store={this.props.store} />
-                <CurrencyDropdown store={this.props.store}/>
+                <CurrencyDropdown base={this.state.rates.base} store={this.props.store}/>
                 <ExchangeRates rates={this.state.rates.rates} />
             </div>
         );
