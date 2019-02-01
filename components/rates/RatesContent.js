@@ -4,6 +4,7 @@ import CurrencyDropdown from './CurrencyDropdown';
 import React from 'react';
 import fetch from 'isomorphic-unfetch';
 import { config } from '../../config';
+import { getCleanCurrencies } from '../../helpers/currency';
 
 const EXCHANGE_RATE_BASE_URL = config.API_URL;
 
@@ -28,7 +29,10 @@ class RatesContent extends React.Component {
     }
 
     getExchangeRate(currency) {
-        return fetch(`${EXCHANGE_RATE_BASE_URL}?base=${currency}`)
+        const currencies = getCleanCurrencies(config.CONVERSION_CURRENCIES, currency);
+        const currencyUrl = `${EXCHANGE_RATE_BASE_URL}?base=${currency}&symbols=${currencies.join(',')}`;
+
+        return fetch(currencyUrl)
             .then(response => response.json())
             .then(data => {
                 this.setState({
