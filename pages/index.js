@@ -1,8 +1,7 @@
+import fetch from 'isomorphic-unfetch';
 import Layout from '../components/common/Layout';
 import RatesContent from '../components/rates/RatesContent';
-import fetch from 'isomorphic-unfetch';
 import { initStore } from '../store';
-import { Provider } from 'react-redux';
 import { config } from '../config';
 import { getCleanCurrencies } from '../helpers/currency';
 
